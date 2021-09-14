@@ -9,6 +9,7 @@ $(".search-button").on("click", function (){
     console.log(citySaved);
 });
 
+// Check array, clear duplicates
 function arrayCheck() {
     for (i = 0; i < citySaved.length; i++) {
         console.log(citySaved[i])
