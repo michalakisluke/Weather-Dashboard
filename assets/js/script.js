@@ -9,7 +9,8 @@ $(".search-button").on("click", function (){
 });
 
 // Check array, clear duplicates
-function arrayCheck(citySaved, city) {
+function arrayCheck() {
+    console.log(citySaved.indexOf(city));
     if (citySaved.indexOf(city) === -1) {
         citySaved.push(city);
         console.log(citySaved);
