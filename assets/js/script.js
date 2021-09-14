@@ -13,11 +13,17 @@ $(".search-button").on("click", function (){
 function arrayCheck() {
     for (i = 0; i < citySaved.length; i++) {
         console.log(citySaved[i])
-        if ($(citySaved[i]).val() != city.val()) {
-            citySaved.push(city);
+        if (citySaved.length = 0) {
+            citySaved[i] = city;
         }
-        else if (citySaved[i].val() === city.val()) {
-            console.log("Repeat");
+        else {
+            if ($(citySaved[i].val()) != $(city.val())) {
+                citySaved[i] = city;
+            }
+            else if ($(citySaved[i].val()) === $(city.val())) {
+                console.log("Repeat");
+            }
         }
     }
 }
+
