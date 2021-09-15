@@ -5,13 +5,20 @@ let citySaved = [];
 $(".search-button").on("click", function (){
     city = $(".form-input").val().trim();
     console.log(city);
-    if (city == null) {
+    if (city === '') {
         return;
     }
     else {
         city = city[0].toUpperCase() + city.substring(1);
         $(".form-input").val("");
+        var saveDiv = document.getElementById("saved");
+        saveDiv.parentNode.removeChild(saveDiv);
+        var newSaveDiv = document.createElement("div");
+        newSaveDiv.setAttribute("id", "saved");
+        newSaveDiv.setAttribute("class", "saved");
+        document.getElementById("interactive-side").appendChild(newSaveDiv);
         arrayCheck();
+        previousSearch();
     }
 });
 
@@ -31,6 +38,24 @@ function arrayCheck() {
                 citySaved.unshift(city);
                 console.log(citySaved);
             }
+        }
+    }
+}
+
+// Write Saved items
+
+function previousSearch() {
+    for (i = 0; i < 10; i++) {
+        var searchText = citySaved[i];
+        console.log(searchText);
+        if (citySaved[i] == null) {
+            return;
+        }
+        else {
+            var prevSearchButt = document.createElement("button");
+            prevSearchButt.setAttribute("id", "prev-search-butt")
+            prevSearchButt.innerHTML = citySaved[i];
+            document.getElementById("saved").appendChild(prevSearchButt);
         }
     }
 }
