@@ -46,12 +46,6 @@ $(".search-button").on("click", function (){
     }
 });
 
-// Prev search button clicked, call to api
-$(".prev-search-butt").on("click", function (){
-    city = $(this).html();
-    console.log(city);
-});
-
 // Check array, clear duplicates
 function arrayCheck() {
     citySaved = window.citySaved;
@@ -76,7 +70,7 @@ function arrayCheck() {
     }
 }
 
-// Write Saved items
+// Write Saved items, establish button click for prev items
 function previousSearch() {
     if (citySaved == null) {
         return;
@@ -92,10 +86,16 @@ function previousSearch() {
             }
             else {
                 var prevSearchButt = document.createElement("button");
+                prevSearchButt.addEventListener("click", apiFetchPrev);
                 prevSearchButt.setAttribute("class", "prev-search-butt")
                 prevSearchButt.innerHTML = citySavedStore[i];
                 document.getElementById("saved").appendChild(prevSearchButt);
             }
         }
     }
+}
+
+function apiFetchPrev() {
+    city = $(this).html();
+    console.log(city);
 }
