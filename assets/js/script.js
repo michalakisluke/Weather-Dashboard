@@ -3,9 +3,16 @@ let citySaved = [];
 
 // Search
 $(".search-button").on("click", function (){
-    city = $(".form-input").val();
+    city = $(".form-input").val().trim();
     console.log(city);
-    arrayCheck();
+    if (city == null) {
+        return;
+    }
+    else {
+        city = city[0].toUpperCase() + city.substring(1);
+        $(".form-input").val("");
+        arrayCheck();
+    }
 });
 
 // Check array, clear duplicates
