@@ -46,23 +46,10 @@ $(".search-button").on("click", function (){
     }
 });
 
-// Prev search button clicked
+// Prev search button clicked, call to api
 $(".prev-search-butt").on("click", function (){
-    city = $(".prev-search-butt").html();
+    city = $(this).html();
     console.log(city);
-    if (city === '') {
-        return;
-    }
-    else {
-        var saveDiv = document.getElementById("saved");
-        saveDiv.parentNode.removeChild(saveDiv);
-        var newSaveDiv = document.createElement("div");
-        newSaveDiv.setAttribute("id", "saved");
-        newSaveDiv.setAttribute("class", "saved");
-        document.getElementById("interactive-side").appendChild(newSaveDiv);
-        arrayCheck();
-        previousSearch();
-    }
 });
 
 // Check array, clear duplicates
@@ -112,26 +99,3 @@ function previousSearch() {
         }
     }
 }
-
-// function saveSearch() {
-//     $(".prev-search-butt").on("click", function (){
-//         city = $(".prev-search-butt").html();
-//         console.log(city);
-//         if (city === '') {
-//             return;
-//         }
-//         else {
-//             var saveDiv = document.getElementById("saved");
-//             saveDiv.parentNode.removeChild(saveDiv);
-//             var newSaveDiv = document.createElement("div");
-//             newSaveDiv.setAttribute("id", "saved");
-//             newSaveDiv.setAttribute("class", "saved");
-//             document.getElementById("interactive-side").appendChild(newSaveDiv);
-//             arrayCheck();
-//             previousSearch();
-//         }
-//     });
-// }
-
-
-
