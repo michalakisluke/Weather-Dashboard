@@ -42,7 +42,7 @@
     border-radius: 5px;
 }
 
-#prev-search-butt {
+.prev-search-butt {
     background-color: rgb(115, 115, 248);
     color: white;
     display: block;

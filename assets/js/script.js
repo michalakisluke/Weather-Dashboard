@@ -46,6 +46,25 @@ $(".search-button").on("click", function (){
     }
 });
 
+// Prev search button clicked
+$(".prev-search-butt").on("click", function (){
+    city = $(".prev-search-butt").html();
+    console.log(city);
+    if (city === '') {
+        return;
+    }
+    else {
+        var saveDiv = document.getElementById("saved");
+        saveDiv.parentNode.removeChild(saveDiv);
+        var newSaveDiv = document.createElement("div");
+        newSaveDiv.setAttribute("id", "saved");
+        newSaveDiv.setAttribute("class", "saved");
+        document.getElementById("interactive-side").appendChild(newSaveDiv);
+        arrayCheck();
+        previousSearch();
+    }
+});
+
 // Check array, clear duplicates
 function arrayCheck() {
     citySaved = window.citySaved;
@@ -80,18 +99,39 @@ function previousSearch() {
             // var citySavedStore = JSON.parse(localStorage.getItem("cities"));
             var citySavedStore = citySaved;
             var searchText = citySavedStore[i];
-            console.log(searchText);
+            //console.log(searchText);
             if (citySavedStore[i] == null) {
                 return;
             }
             else {
                 var prevSearchButt = document.createElement("button");
-                prevSearchButt.setAttribute("id", "prev-search-butt")
+                prevSearchButt.setAttribute("class", "prev-search-butt")
                 prevSearchButt.innerHTML = citySavedStore[i];
                 document.getElementById("saved").appendChild(prevSearchButt);
             }
         }
     }
 }
+
+// function saveSearch() {
+//     $(".prev-search-butt").on("click", function (){
+//         city = $(".prev-search-butt").html();
+//         console.log(city);
+//         if (city === '') {
+//             return;
+//         }
+//         else {
+//             var saveDiv = document.getElementById("saved");
+//             saveDiv.parentNode.removeChild(saveDiv);
+//             var newSaveDiv = document.createElement("div");
+//             newSaveDiv.setAttribute("id", "saved");
+//             newSaveDiv.setAttribute("class", "saved");
+//             document.getElementById("interactive-side").appendChild(newSaveDiv);
+//             arrayCheck();
+//             previousSearch();
+//         }
+//     });
+// }
+
 
 
