@@ -28,6 +28,7 @@ function arrayCheck() {
     console.log(citySaved.indexOf(city));
     if (citySaved.indexOf(city) === -1) {
         citySaved.unshift(city);
+        localStorage.setItem("cities",JSON.stringify(citySaved));
         console.log(citySaved);
     }
     else if (citySaved.indexOf(city) > -1) {
@@ -36,6 +37,7 @@ function arrayCheck() {
             if (citySaved[i] === city) {
                 citySaved.splice(i, 1);
                 citySaved.unshift(city);
+                localStorage.setItem("cities",JSON.stringify(citySaved));
                 console.log(citySaved);
             }
         }
@@ -46,15 +48,16 @@ function arrayCheck() {
 
 function previousSearch() {
     for (i = 0; i < 10; i++) {
-        var searchText = citySaved[i];
+        var citySavedStore = JSON.parse(localStorage.getItem("cities"));
+        var searchText = citySavedStore[i];
         console.log(searchText);
-        if (citySaved[i] == null) {
+        if (citySavedStore[i] == null) {
             return;
         }
         else {
             var prevSearchButt = document.createElement("button");
             prevSearchButt.setAttribute("id", "prev-search-butt")
-            prevSearchButt.innerHTML = citySaved[i];
+            prevSearchButt.innerHTML = citySavedStore[i];
             document.getElementById("saved").appendChild(prevSearchButt);
         }
     }
