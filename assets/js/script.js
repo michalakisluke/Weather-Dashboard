@@ -1,6 +1,8 @@
 let city;
 let citySaved = [];
 
+previousSearch();
+
 // Search
 $(".search-button").on("click", function (){
     city = $(".form-input").val().trim();
