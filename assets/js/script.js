@@ -1,8 +1,8 @@
 let city;
-// let citySaved = [];
+var apiKey = "12524a4796d1cd5b9b5d525171960baf";
+var date = moment().format("(M/D/YY)")
 
 let citySaved =  JSON.parse(localStorage.getItem("cities"));
-console.log(JSON.parse(localStorage.getItem("cities")));
 
 // Check if data is in local storage
 function onOpen() {
@@ -10,13 +10,11 @@ function onOpen() {
         console.log("It's null");
         let citySavedLocal = [];
         window.citySaved = citySavedLocal;
-        console.log(window.citySaved);
         return citySaved;
     }
     else {
         var citySavedLocal = JSON.parse(localStorage.getItem("cities"));
         window.citySaved = citySavedLocal;
-        console.log("It's something");
         return citySaved;
     }
 }
@@ -43,6 +41,7 @@ $(".search-button").on("click", function (){
         document.getElementById("interactive-side").appendChild(newSaveDiv);
         arrayCheck();
         previousSearch();
+        apiFetch();
     }
 });
 
@@ -95,7 +94,43 @@ function previousSearch() {
     }
 }
 
+//Fetch data for new search item
+function apiFetch() {
+    // Write a fetch request to the Giphy API
+    fetch("https://api.openweathermap.org/data/2.5/weather?q="+city+"&units=imperial&appid="+apiKey)
+    .then(function(response){
+        return response.json();
+    }).then(function(response) {
+        cityLong = response.coord.lon;
+        console.log("The longitude is " + cityLong);
+        cityLat = response.coord.lat;
+        console.log("The latittued is " + cityLat);
+        fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+cityLat+"&lon="+cityLong+"&exclude=minutely,hourly,daily,alerts&units=imperial&appId="+apiKey)
+        .then(function(result){
+            return result.json();
+        }).then(function(result){
+            cityIcon = result.current.weather.icon;
+            cityIconImage = "http://openweathermap.org/img/wn/" + cityIcon + "@2x.png";
+            statusImg = document.createElement("img");
+            statusImg.setAttribute("src", cityIconImage);
+            cityTemp = result.current.temp;
+            cityHum = result.current.humidity;
+            cityUV = result.current.uvi;
+            cityWind = result.current.wind_speed;
+            $("#current-location").html(city + " " + date);
+            $("#current-location").append(statusImg);
+            $("#temp").html("Temp: " + cityTemp + "&deg; F");
+            $("#wind").html("Wind: " + cityWind + " MPH");
+            $("#humidity").html("Humidity: " + cityHum + "%");
+            $("#uv-index").html("UV Index: " + cityUV);
+        });
+    });
+}
+
+//Fetch data for prev search items
 function apiFetchPrev() {
     city = $(this).html();
-    console.log(city);
+    // Api main call code should work if placed after here no need to modify??
+    console.log("Now we're fetching for " + city);
+    apiFetch();
 }
