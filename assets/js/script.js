@@ -109,9 +109,10 @@ function apiFetch() {
         .then(function(result){
             return result.json();
         }).then(function(result){
-            cityIcon = result.current.weather.icon;
+            cityIcon = result.current.weather[0].icon;
             cityIconImage = "http://openweathermap.org/img/wn/" + cityIcon + "@2x.png";
             statusImg = document.createElement("img");
+            statusImg.setAttribute("id", "current-icon");
             statusImg.setAttribute("src", cityIconImage);
             cityTemp = result.current.temp;
             cityHum = result.current.humidity;
