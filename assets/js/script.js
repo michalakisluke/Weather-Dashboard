@@ -117,7 +117,7 @@ function apiFetch() {
             cityHum = result.current.humidity;
             cityUV = result.current.uvi;
             cityWind = result.current.wind_speed;
-            $("#current-location").html(city + " " + date);
+            $("#current-location").html(city + " " + date + " ");
             $("#current-location").append(statusImg);
             $("#temp").html("Temp: " + cityTemp + "&deg; F");
             $("#wind").html("Wind: " + cityWind + " MPH");
@@ -131,6 +131,5 @@ function apiFetch() {
 function apiFetchPrev() {
     city = $(this).html();
     // Api main call code should work if placed after here no need to modify??
-    console.log("Now we're fetching for " + city);
     apiFetch();
 }
