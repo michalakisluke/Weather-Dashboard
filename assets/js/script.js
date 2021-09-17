@@ -123,7 +123,27 @@ function apiFetch() {
             $("#temp").html("Temp: " + cityTemp + "&deg; F");
             $("#wind").html("Wind: " + cityWind + " MPH");
             $("#humidity").html("Humidity: " + cityHum + "%");
-            $("#uv-index").html("UV Index: " + cityUV);
+            $("#uv-index").html(" " + cityUV + " ");
+            if (cityUV < 2.99 ) {
+                document.getElementById("uv-index").style.backgroundColor = 'green';
+                document.getElementById("uv-index").style.color = 'white';
+            }
+            else if (cityUV >= 3 & cityUV <= 5.99) {
+                document.getElementById("uv-index").style.backgroundColor = 'yellow';   
+                document.getElementById("uv-index").style.color = 'black';             
+            }
+            else if (cityUV >= 6 & cityUV <= 7.99) {
+                document.getElementById("uv-index").style.backgroundColor = 'orange';
+                document.getElementById("uv-index").style.color = 'black'; 
+            }
+            else if (cityUV >= 8 & cityUV <= 10.99) {
+                document.getElementById("uv-index").style.backgroundColor = 'red';
+                document.getElementById("uv-index").style.color = 'black'; 
+            }
+            else if (cityUV >= 11) {
+                document.getElementById("uv-index").style.backgroundColor = 'purple';
+                document.getElementById("uv-index").style.color = 'white';
+            }
         });
     });
 }
