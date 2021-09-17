@@ -145,6 +145,12 @@ function apiFetch() {
                 document.getElementById("uv-index").style.color = 'white';
             }
         });
+        fetch("https://api.openweathermap.org/data/2.5/forecast/daily?q="+city+"&cnt=5&units=imperial&appid="+apiKey)
+        .then(function(result){
+            return result.json();
+        }).then(function(result){
+            console.log(result);
+        });
     });
 }
 
