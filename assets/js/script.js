@@ -145,19 +145,21 @@ function apiFetch() {
             }
             // Five Day Forecast
             $(".five-day-content").each(function(index) {
+                $(".five-day-content").css("background-color", "darkblue");
                 indexSkipFirst = index + 1;
                 var fiveDayDate = moment().add(indexSkipFirst, 'days').format("M/D/YY")
-                var fiveDayIcon = result.daily[indexSkipFirst].weather.icon;
+                var fiveDayIcon = result.daily[indexSkipFirst].weather[0].icon;
                 var fiveDayImage = "http://openweathermap.org/img/wn/" + fiveDayIcon + "@2x.png";
                 var fiveDayTemp = result.daily[indexSkipFirst].temp.max;
                 var fiveDayWind = result.daily[indexSkipFirst].wind_speed;
                 var fiveDayHum = result.daily[indexSkipFirst].humidity;
-                console.log("The temperature for " + fiveDayDate + " is " + fiveDayTemp);
-                $("#five-day-date").html(fiveDayDate);
-                //$("#five-day-icon").setAttribute("src", fiveDayImage);
-                $("#temp").html("Temp: " + fiveDayTemp);
-                $("#wind").html("Wind: " + fiveDayWind);
-                $("#humidity").html("Humidity: " + fiveDayHum + "%");
+                $("#five-day-date-" + indexSkipFirst).html(fiveDayDate);
+                $("#five-day-icon-" + indexSkipFirst).attr("src", fiveDayImage);
+                $("#five-day-icon-" + indexSkipFirst).css("width", "50px");
+                $("#five-day-icon-" + indexSkipFirst).css("height", "50px");
+                $("#temp-" + indexSkipFirst).html("Temp: " + fiveDayTemp);
+                $("#wind-" + indexSkipFirst).html("Wind: " + fiveDayWind + " MPH");
+                $("#humidity-" + indexSkipFirst).html("Humidity: " + fiveDayHum + "%");
             });
         });
     });

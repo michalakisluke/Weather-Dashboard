@@ -72,3 +72,14 @@
     width: 18%;
     margin: 0px 5px;
 }
+
+.five-day-content h3 {
+    margin: 0px 5px;
+    color: white;
+    font-weight: bold;
+}
+
+.five-day-content p {
+    margin-left: 5px;
+    color: white;
+}
