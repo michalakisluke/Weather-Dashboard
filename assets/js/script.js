@@ -76,10 +76,8 @@ function previousSearch() {
     }
     else {
         for (i = 0; i < 10; i++) {
-            // var citySavedStore = JSON.parse(localStorage.getItem("cities"));
             var citySavedStore = citySaved;
             var searchText = citySavedStore[i];
-            //console.log(searchText);
             if (citySavedStore[i] == null) {
                 return;
             }
@@ -105,10 +103,11 @@ function apiFetch() {
         console.log("The longitude is " + cityLong);
         cityLat = response.coord.lat;
         console.log("The latittued is " + cityLat);
-        fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+cityLat+"&lon="+cityLong+"&exclude=minutely,hourly,daily,alerts&units=imperial&appId="+apiKey)
+        fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+cityLat+"&lon="+cityLong+"&exclude=minutely,hourly,alerts&units=imperial&appId="+apiKey)
         .then(function(result){
             return result.json();
         }).then(function(result){
+            // Main Weather
             cityIcon = result.current.weather[0].icon;
             cityIconImage = "http://openweathermap.org/img/wn/" + cityIcon + "@2x.png";
             statusImg = document.createElement("img");
@@ -144,12 +143,22 @@ function apiFetch() {
                 document.getElementById("uv-index").style.backgroundColor = 'purple';
                 document.getElementById("uv-index").style.color = 'white';
             }
-        });
-        fetch("https://api.openweathermap.org/data/2.5/forecast/daily?q="+city+"&cnt=5&units=imperial&appid="+apiKey)
-        .then(function(result){
-            return result.json();
-        }).then(function(result){
-            console.log(result);
+            // Five Day Forecast
+            $(".five-day-content").each(function(index) {
+                indexSkipFirst = index + 1;
+                var fiveDayDate = moment().add(indexSkipFirst, 'days').format("M/D/YY")
+                var fiveDayIcon = result.daily[indexSkipFirst].weather.icon;
+                var fiveDayImage = "http://openweathermap.org/img/wn/" + fiveDayIcon + "@2x.png";
+                var fiveDayTemp = result.daily[indexSkipFirst].temp.max;
+                var fiveDayWind = result.daily[indexSkipFirst].wind_speed;
+                var fiveDayHum = result.daily[indexSkipFirst].humidity;
+                console.log("The temperature for " + fiveDayDate + " is " + fiveDayTemp);
+                $("#five-day-date").html(fiveDayDate);
+                //$("#five-day-icon").setAttribute("src", fiveDayImage);
+                $("#temp").html("Temp: " + fiveDayTemp);
+                $("#wind").html("Wind: " + fiveDayWind);
+                $("#humidity").html("Humidity: " + fiveDayHum + "%");
+            });
         });
     });
 }
