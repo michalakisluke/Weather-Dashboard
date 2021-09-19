@@ -7,7 +7,6 @@ let citySaved =  JSON.parse(localStorage.getItem("cities"));
 // Check if data is in local storage
 function onOpen() {
     if (JSON.parse(localStorage.getItem("cities")) == null) {
-        console.log("It's null");
         let citySavedLocal = [];
         window.citySaved = citySavedLocal;
         return citySaved;
@@ -26,7 +25,6 @@ previousSearch();
 // Search button click
 $(".search-button").on("click", function (){
     city = $(".form-input").val().trim();
-    console.log(city);
     if (city === '') {
         return;
     }
@@ -48,13 +46,9 @@ $(".search-button").on("click", function (){
 // Check array, clear duplicates
 function arrayCheck() {
     citySaved = window.citySaved;
-    console.log("City is " + city);
-    console.log(citySaved);
-    console.log(citySaved.indexOf(city));
     if (citySaved.indexOf(city) === -1) {
         citySaved.unshift(city);
         localStorage.setItem("cities",JSON.stringify(citySaved));
-        console.log(citySaved);
     }
     else if (citySaved.indexOf(city) > -1) {
         console.log("repeat");
@@ -63,7 +57,6 @@ function arrayCheck() {
                 citySaved.splice(i, 1);
                 citySaved.unshift(city);
                 localStorage.setItem("cities",JSON.stringify(citySaved));
-                console.log(citySaved);
             }
         }
     }
@@ -100,9 +93,7 @@ function apiFetch() {
         return response.json();
     }).then(function(response) {
         cityLong = response.coord.lon;
-        console.log("The longitude is " + cityLong);
         cityLat = response.coord.lat;
-        console.log("The latittued is " + cityLat);
         fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+cityLat+"&lon="+cityLong+"&exclude=minutely,hourly,alerts&units=imperial&appId="+apiKey)
         .then(function(result){
             return result.json();
